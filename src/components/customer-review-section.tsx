@@ -85,7 +85,7 @@ const CustomerReviewSection = () => {
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover why thousands of customers trust Pure Essence for their natural wellness journey
+            Discover why our customers trust Pure Essence for their natural wellness journey.
           </p>
         </div>
 

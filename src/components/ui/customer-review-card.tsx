@@ -36,7 +36,7 @@ const CustomerReviewCard: React.FC<CustomerReviewCardProps> = ({
 
       {/* Customer Name */}
       <div className="flex items-center">
-        <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-orange-400 rounded-full flex items-center justify-center text-white font-semibold text-sm mr-3">
+        <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-orange-100 rounded-full flex items-center justify-center text-black font-semibold text-sm mr-3">
           {customerName.charAt(0).toUpperCase()}
         </div>
         <p className="font-semibold text-gray-800">
