@@ -15,12 +15,16 @@ const font = Urbanist({
 
 export const metadata: Metadata = {
   title: "Pure Essence Creations",
+  description: "Its a ecommerce store built with nextjs 15",
   icons: {
     icon: [
-      { url: '/leaflogo.png', sizes: '16x16', type: 'image/png' },
+      { url: "/leaflogo.png", type: "image/png" },
+    ],
+    shortcut: ["/leaflogo.png"],
+    apple: [
+      { url: "/leaflogo.png", type: "image/png" }
     ]
   },
-  description: "Its a ecommerce store built with nextjs 15",
 };
 
 export default function RootLayout({
@@ -31,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${font.className} antialiased`}
+        className={`${font.className} antialiased bg-[#FCFAEF] ` }
       >
         <ModalProvider />
         <ToastProvider/>

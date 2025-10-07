@@ -4,6 +4,15 @@ export interface Billboard {
   imageUrl: string;
 }
 
+export interface CategoryWithBillboards {
+  id: string;
+  name: string;
+  storeId: string;
+  CreatedAt: string;
+  updatedAt: string;
+  billboards: Billboard[];
+}
+
 export interface Category {
   id: string;
   name: string;

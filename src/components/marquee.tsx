@@ -25,7 +25,7 @@ const Marquee = () => {
   ];
 
   return (
-    <section className="overflow-hidden border-t border-b  to-orange-50">
+    <section className="overflow-hidden   bg-[#d4a373]">
       <div 
         ref={marqueeRef}
         className="flex whitespace-nowrap animate-marquee"
@@ -50,7 +50,7 @@ const Marquee = () => {
                   height="12" 
                   viewBox="0 0 15 12" 
                   fill="none" 
-                  className="text-green-600"
+                  className="text-amber-900"
                 >
                   <path 
                     d="M13.5 2L5.25 10L1.5 6.36364" 
@@ -62,7 +62,7 @@ const Marquee = () => {
               </div>
               
               {/* Text */}
-              <strong className="text-lg lg:text-2xl font-bold text-gray-800">
+              <strong className="text-lg lg:text-3xl font-bold text-gray-800">
                 {item}
               </strong>
             </div>
@@ -83,7 +83,7 @@ const Marquee = () => {
                   height="12" 
                   viewBox="0 0 15 12" 
                   fill="none" 
-                  className="text-green-600"
+                  className="text-amber-900"
                 >
                   <path 
                     d="M13.5 2L5.25 10L1.5 6.36364" 

@@ -61,8 +61,8 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       {/* Description */}
       {data.description && (
         <div className="space-y-3">
-          <h3 className='font-semibold text-black text-lg'>Description</h3>
-          <p className='text-gray-700 leading-relaxed text-sm'>
+          {/* <h3 className='font-semibold text-black text-lg'>Description</h3> */}
+          <p className='text-gray-700 leading-relaxed text-base'>
             {formatDescription(data.description)}
           </p>
         </div>
@@ -71,14 +71,14 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       {/* Bullet Points */}
       {data.bulletPoints && data.bulletPoints.length > 0 && (
         <div className="space-y-3">
-          <h3 className='font-semibold text-black text-lg'>Key Features</h3>
+          <h3 className='font-semibold text-black text-xl'>Key Features</h3>
           <ul className='space-y-2'>
             {data.bulletPoints.map((point, index) => (
               <li key={index} className='flex items-start gap-3'>
                 <div className='flex-shrink-0 w-5 h-5 bg-green-100 rounded-full flex items-center justify-center mt-0.5'>
-                  <Check size={12} className='text-green-600' />
+                  <Check size={12} className='text-green-800' />
                 </div>
-                <span className='text-gray-700 text-sm leading-relaxed'>
+                <span className='text-gray-700 text-base leading-relaxed'>
                   {point}
                 </span>
               </li>
