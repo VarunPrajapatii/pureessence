@@ -26,8 +26,8 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
           <div className="fixed inset-0 bg-black/20 bg-opacity-50 backdrop-blur-sm" />
         </Transition.Child>
         
-        <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+        <div className="fixed inset-0 overflow-y-auto pt-16">
+          <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -37,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl overflow-hidden rounded-lg text-left align-middle transform transition-all">
+              <Dialog.Panel className="w-full max-w-4xl overflow-hidden rounded-lg text-left align-middle transform transition-all">
                 <div className='relative w-full overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8'>
                   <div className='absolute right-4 top-4'>
                     <IconButton onClick={onClose} icon={<X size={15} />} />

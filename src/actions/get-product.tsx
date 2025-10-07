@@ -17,8 +17,7 @@ const getProduct = async (id: string): Promise<Product | null> => {
       throw new Error('Response is not JSON');
     }
     
-    const data = await res.json();
-    
+    const data = await res.json();    
     return data;
   } catch (error) {
     console.error('Error fetching product:', error);

@@ -13,30 +13,24 @@ import Image from 'next/image';
 export const revalidate = 0;
 
 const Navbar = async () => {
-  const categories = await getCategories();
 
   return (
     <div className="fixed bg-white w-full z-20">
       <Container>
-        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
-          {/* Left spacer to balance the cart button */}
-          <div className="flex items-center">
-            {/* This div takes up the same space as the cart button for centering */}
-            <div className="w-[72px]"></div>
-          </div>
-          
-          {/* Centered Logo */}
-          <Link href="/" className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <Image
-              src={"/pslogo.png"}
-              alt="Logo"
-              width={150}
-              height={100}
-              className=''
-            />
+        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
+          <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
+            <p className="font-bold text-xl">
+              <Image
+                src={"/pslogo.png"}
+                alt="Logo"
+                width={150}
+                height={100}
+                className=''
+              />
+            </p>
           </Link>
-          
-          {/* Right side - Cart */}
+          {/* No need of main nav now */}
+          {/* <MainNav data={categories} /> */}
           <NavbarAction /> 
         </div>
       </Container>
