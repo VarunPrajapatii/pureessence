@@ -3,6 +3,7 @@ import Link from 'next/link';
 import MainNav from '@/components/main-nav';
 import getCategories from '@/actions/get-categories';
 import NavbarAction from '@/components/navbar-actions';
+import Image from 'next/image';
 
 // what this does is that it never caches this page
 // meaning it will always fetch the latest data from the server
@@ -15,13 +16,27 @@ const Navbar = async () => {
   const categories = await getCategories();
 
   return (
-    <div className="border-b">
+    <div className="fixed bg-white w-full z-20">
       <Container>
-        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
-          <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
-            <p className="font-bold text-xl">STORE</p>
+        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
+          {/* Left spacer to balance the cart button */}
+          <div className="flex items-center">
+            {/* This div takes up the same space as the cart button for centering */}
+            <div className="w-[72px]"></div>
+          </div>
+          
+          {/* Centered Logo */}
+          <Link href="/" className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Image
+              src={"/pslogo.png"}
+              alt="Logo"
+              width={150}
+              height={100}
+              className=''
+            />
           </Link>
-          <MainNav data={categories} />
+          
+          {/* Right side - Cart */}
           <NavbarAction /> 
         </div>
       </Container>

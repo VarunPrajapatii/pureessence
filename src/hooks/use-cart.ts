@@ -17,17 +17,21 @@ const useCart = create(
         items: [],
         addItem: (data: Product) => {
             const currentItems = get().items;
-            const existingItem = currentItems.find((item) => item.id === data.id);
-
-            if (existingItem) {
-                return toast("Item already in cart");
-            }
-
-            set({ items: [...get().items, data] });
+            
+            // Always add the item (allowing multiple quantities)
+            set({ items: [...currentItems, data] });
+            toast.success("Item added to cart");
         },
         removeItem: (id: string) => {
-            set({ items: get().items.filter((item) => item.id !== id) });
-            toast.success("Item removed from cart");
+            const currentItems = get().items;
+            const itemIndex = currentItems.findIndex((item) => item.id === id);
+            
+            if (itemIndex > -1) {
+                const newItems = [...currentItems];
+                newItems.splice(itemIndex, 1);
+                set({ items: newItems });
+                toast.success("Item removed from cart");
+            }
         },
         removeAll: () => {
             set({ items: [] });
