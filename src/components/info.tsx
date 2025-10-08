@@ -6,6 +6,7 @@ import Currency from '@/components/ui/currency'
 import Button from '@/components/ui/button'
 import { ShoppingCart, Check } from 'lucide-react'
 import useCart from '@/hooks/use-cart'
+import Image from 'next/image'
 
 interface InfoProps {
     data: Product
@@ -67,6 +68,59 @@ const Info: React.FC<InfoProps> = ({ data }) => {
           </p>
         </div>
       )}
+
+      {/* Product Features Icons */}
+      <div className="py-4">
+        <ul className="flex items-center gap-6 flex-wrap">
+          {/* Natural */}
+          <li className="flex flex-col items-center gap-1">
+            <Image 
+              src="/natural.png" 
+              alt="Natural" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
+            <span className="text-xs text-gray-600 font-medium">Natural</span>
+          </li>
+
+          {/* Vegan */}
+          <li className="flex flex-col items-center gap-1">
+            <Image 
+              src="/vegan.png" 
+              alt="Vegan" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
+            <span className="text-xs text-gray-600 font-medium">Vegan</span>
+          </li>
+
+          {/* Made in India */}
+          <li className="flex flex-col items-center gap-1">
+            <Image 
+              src="/made-in-india.png" 
+              alt="Made in India" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
+            <span className="text-xs text-gray-600 font-medium">Made in India</span>
+          </li>
+
+          {/* Cruelty Free */}
+          <li className="flex flex-col items-center gap-1">
+            <Image 
+              src="/cruelty-free.png" 
+              alt="Cruelty Free" 
+              width={40} 
+              height={40}
+              className="w-10 h-10 object-contain"
+            />
+            <span className="text-xs text-gray-600 font-medium">Cruelty Free</span>
+          </li>
+        </ul>
+      </div>
 
       {/* Bullet Points */}
       {data.bulletPoints && data.bulletPoints.length > 0 && (

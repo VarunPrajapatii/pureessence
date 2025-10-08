@@ -1,17 +1,20 @@
 import getCategoryBillboards from '@/actions/get-category-billboards';
 import getProducts from '@/actions/get-products';
+import getUpcomingProducts from '@/actions/get-upcoming-products';
 import Billboard from '@/components/billboard';
 import CustomerReviewSection from '@/components/customer-review-section';
 import Marquee from '@/components/marquee';
 import OurPurpose from '@/components/our-purpose';
 import ProductList from '@/components/product-list';
 import Container from '@/components/ui/container';
+import UpcomingProducts from '@/components/upcoming-products';
 
 export const revalidate = 0;
 
 const HomePage = async () => {
   const products = await getProducts({ isFeatured: true });
-  const billboards = await getCategoryBillboards('ac722dec-c7dc-4ccd-8eaa-26f797202830');
+  const billboards = await getCategoryBillboards('bdfe79f2-996b-4689-b848-985df841569c');
+  const upcomingProducts = await getUpcomingProducts({});
 
   return (
     <Container>
@@ -24,6 +27,8 @@ const HomePage = async () => {
         <OurPurpose />
         {/* Marquee */}
         <Marquee />
+        {/* Upcoming Products */}
+        <UpcomingProducts items={upcomingProducts} />
         {/* Customer Review Section */}
         <CustomerReviewSection />
       </div>

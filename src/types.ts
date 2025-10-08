@@ -48,3 +48,15 @@ export interface Size {
   name: string
   value: string
 }
+
+export interface UpcomingProduct {
+  id: string
+  name: string
+  price: string
+  imageUrl: string
+  storeId: string
+  categoryId: string
+  CreatedAt: string
+  updatedAt: string
+  category: Category
+}
