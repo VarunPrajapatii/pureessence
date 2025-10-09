@@ -6,7 +6,7 @@ import { Instagram, Twitter, Youtube, Facebook } from 'lucide-react'
 const Footer = () => {
   return (
     <footer className="bg-[#d4a373]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[95vw] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Main Footer Content */}
         <div className="py-10">
@@ -25,57 +25,58 @@ const Footer = () => {
           </div>
 
           {/* Main Footer Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             
             {/* Left Side - Company Description */}
             <div className="lg:col-span-1">
-              <p className="text-black leading-relaxed font-medium text-base lg:text-lg">
+              <p className="text-black leading-relaxed font-medium text-base lg:text-lg max-w-2/3">
                 Pure Essence&apos;s natural wellness solutions are shaping the future of organic health, merging traditional Ayurvedic wisdom with pure plant-based powders for long-term vitality and natural beauty.
               </p>
             </div>
+            <div className='lg:col-span-1 grid grid-cols-2 gap-8'>
+              {/* About Us Section */}
+              <div>
+                <h3 className="text-xl font-bold text-black mb-6">About Us</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/about/our-story" className="text-black hover:font-semibold transition-all">
+                      Our Story
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/blog" className="text-black hover:font-semibold transition-all">
+                      Blog
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-            {/* About Us Section */}
-            <div>
-              <h3 className="text-xl font-bold text-black mb-6">About Us</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/about/our-story" className="text-black hover:font-semibold transition-all">
-                    Our Story
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="text-black hover:font-semibold transition-all">
-                    Blog
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Help & Support Section */}
-            <div>
-              <h3 className="text-xl font-bold text-black mb-6">Help &amp; Support</h3>
-              <ul className="space-y-3">
-                <li>
-                  <Link href="/returns-exchanges" className="text-black hover:font-semibold transition-all">
-                    Returns &amp; Exchanges
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="text-black hover:font-semibold transition-all">
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms-of-use" className="text-black hover:font-semibold transition-all">
-                    Terms of Use
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact-us" className="text-black hover:font-semibold transition-all">
-                    Contact Us
-                  </Link>
-                </li>
-              </ul>
+              {/* Help & Support Section */}
+              <div>
+                <h3 className="text-xl font-bold text-black mb-6">Help &amp; Support</h3>
+                <ul className="space-y-3">
+                  <li>
+                    <Link href="/returns-exchanges" className="text-black hover:font-semibold transition-all">
+                      Returns &amp; Exchanges
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/faq" className="text-black hover:font-semibold transition-all">
+                      FAQ
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/terms-of-use" className="text-black hover:font-semibold transition-all">
+                      Terms of Use
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact-us" className="text-black hover:font-semibold transition-all">
+                      Contact Us
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
 
           </div>

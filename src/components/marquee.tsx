@@ -30,7 +30,7 @@ const Marquee = () => {
         ref={marqueeRef}
         className="flex whitespace-nowrap animate-marquee"
         style={{
-          animationDuration: '40s',
+          animationDuration: '20s',
           animationTimingFunction: 'linear',
           animationIterationCount: 'infinite',
           animationPlayState: 'paused'
@@ -95,7 +95,7 @@ const Marquee = () => {
               </div>
               
               {/* Text */}
-              <strong className="text-lg lg:text-2xl font-bold text-gray-800">
+              <strong className="text-lg lg:text-3xl font-bold text-gray-800">
                 {item}
               </strong>
             </div>
