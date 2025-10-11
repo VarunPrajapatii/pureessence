@@ -36,6 +36,7 @@ export interface Product {
   size: Size
   images: Image[]
   relatedItems: Product[]
+  quantity?: number // Optional quantity field for cart items
 }
 
 export interface Image {

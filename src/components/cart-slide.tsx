@@ -8,8 +8,7 @@ import Image from 'next/image';
 import Currency from '@/components/ui/currency';
 import Button from '@/components/ui/button';
 import { Product } from '@/types';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface CartSlideItemProps {
   data: Product;
@@ -24,13 +23,11 @@ const CartSlideItem: React.FC<CartSlideItemProps> = ({ data, quantity }) => {
   };
 
   const onIncrease = () => {
-    cart.addItem(data);
+    cart.increaseQuantity(data.id);
   };
 
   const onDecrease = () => {
-    if (quantity > 1) {
-      cart.removeItem(data.id);
-    }
+    cart.decreaseQuantity(data.id);
   };
 
   return (
@@ -88,46 +85,32 @@ const CartSlideItem: React.FC<CartSlideItemProps> = ({ data, quantity }) => {
 const CartSlide = () => {
   const cartSlide = useCartSlide();
   const cart = useCart();
+  const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Group items by ID and count quantities
-  const groupedItems = cart.items.reduce((acc, item) => {
-    const existingItem = acc.find(
-      (groupedItem) => groupedItem.data.id === item.id
-    );
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      acc.push({ data: item, quantity: 1 });
-    }
-    return acc;
-  }, [] as { data: Product; quantity: number }[]);
+  // Map items with their quantities
+  const itemsWithQuantity = cart.items.map(item => ({
+    data: item,
+    quantity: item.quantity || 1
+  }));
 
-  const totalPrice = cart.items.reduce((total, item) => {
-    return total + Number(item.price);
+  // Calculate total items count
+  const totalItemsCount = cart.items.reduce((total, item) => {
+    return total + (item.quantity || 1);
   }, 0);
 
-  const onCheckout = async () => {
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
-        {
-          productIds: cart.items.map((item) => item.id),
-        }
-      );
+  // Calculate total price
+  const totalPrice = cart.items.reduce((total, item) => {
+    return total + (Number(item.price) * (item.quantity || 1));
+  }, 0);
 
-      window.location = response.data.url;
-    } catch {
-      toast.error('Something went wrong.');
-    } finally {
-      setIsLoading(false);
-    }
+  const onCheckout = () => {
+    cartSlide.onClose();
+    router.push('/checkout');
   };
 
   if (!isMounted) {
@@ -155,7 +138,7 @@ const CartSlide = () => {
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">
-              Your Bag ({cart.items.length})
+              Your Bag ({totalItemsCount})
             </h2>
             <button
               onClick={cartSlide.onClose}
@@ -176,9 +159,9 @@ const CartSlide = () => {
               </div>
             ) : (
               <div className="space-y-4">
-                {groupedItems.map((item) => (
+                {itemsWithQuantity.map((item, index) => (
                   <CartSlideItem
-                    key={item.data.id}
+                    key={index}
                     data={item.data}
                     quantity={item.quantity}
                   />
@@ -199,10 +182,9 @@ const CartSlide = () => {
               </p>
               <Button
                 onClick={onCheckout}
-                disabled={isLoading}
                 className="w-full bg-black hover:bg-gray-800 text-white py-3 text-base font-medium"
               >
-                {isLoading ? 'Processing...' : 'CHECKOUT'}
+                CHECKOUT
               </Button>
             </div>
           )}
