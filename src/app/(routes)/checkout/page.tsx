@@ -124,7 +124,7 @@ const CheckoutPage = () => {
 
       // TODO: Uncomment above API call when OTP backend is ready
       // For now, show OTP field for testing
-      
+
       // if (response.data) {
       setShowOtpField(true);
       toast.success('OTP sent to your phone number');
@@ -187,6 +187,15 @@ const CheckoutPage = () => {
       };
 
       console.log('Payload:', payload);
+      console.log('Checkout Items Detail:', checkoutItems);
+      console.log(
+        'Product IDs being sent:',
+        checkoutItems.map((item) => item.productId)
+      );
+      console.log('Full cart items:', items);
+      console.log('Stringified payload:', JSON.stringify(payload, null, 2));
+
+      new Promise((resolve) => setTimeout(resolve, 10000));
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
@@ -195,8 +204,7 @@ const CheckoutPage = () => {
 
       console.log('Checkout response:', response);
 
-      const { razorpayOrderId, amount, email, phone } =
-        response.data;
+      const { razorpayOrderId, amount, email, phone } = response.data;
 
       const options: RazorpayOptions = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '',
@@ -222,11 +230,9 @@ const CheckoutPage = () => {
             );
 
             if (verifyResponse.data.success) {
-              // Clear cart after successful payment
               cart.removeAll();
               toast.success('Payment successful!');
-              // Redirect to success page
-              router.push('/order-success');
+              router.push(`/order-success?orderId=${response.data.orderId}`);
             } else {
               toast.error('Payment verification failed!');
             }
