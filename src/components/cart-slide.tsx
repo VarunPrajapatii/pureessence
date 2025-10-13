@@ -3,7 +3,7 @@
 import useCartSlide from '@/hooks/use-cart-slide';
 import useCart from '@/hooks/use-cart';
 import { useEffect, useState } from 'react';
-import { X, Plus, Minus } from 'lucide-react';
+import { X, Plus, Minus, AlertCircle, AlertTriangle } from 'lucide-react';
 import Image from 'next/image';
 import Currency from '@/components/ui/currency';
 import Button from '@/components/ui/button';
@@ -23,15 +23,20 @@ const CartSlideItem: React.FC<CartSlideItemProps> = ({ data, quantity }) => {
   };
 
   const onIncrease = () => {
-    cart.increaseQuantity(data.id);
+    if (quantity < data.stockQuantity) {
+      cart.increaseQuantity(data.id);
+    }
   };
 
   const onDecrease = () => {
     cart.decreaseQuantity(data.id);
   };
 
+  const hasStockIssue = quantity > data.stockQuantity;
+  const canIncrease = quantity < data.stockQuantity;
+
   return (
-    <div className="flex py-4 border-b border-gray-200">
+    <div className={`flex py-4 border-b ${hasStockIssue ? 'bg-red-50 border-red-200' : 'border-gray-200'}`}>
       <div className="relative h-32 w-32 rounded-md overflow-hidden flex-shrink-0">
         <Image
           fill
@@ -57,6 +62,17 @@ const CartSlideItem: React.FC<CartSlideItemProps> = ({ data, quantity }) => {
             <X size={16} />
           </button>
         </div>
+
+        {/* Stock Warning */}
+        {hasStockIssue && (
+          <div className="flex items-center gap-2 mt-2 text-red-600 text-xs">
+            <AlertCircle size={14} />
+            <span className="font-semibold">
+              Only {data.stockQuantity} available! Please reduce quantity.
+            </span>
+          </div>
+        )}
+
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center space-x-2">
             <button
@@ -71,11 +87,16 @@ const CartSlideItem: React.FC<CartSlideItemProps> = ({ data, quantity }) => {
             </span>
             <button
               onClick={onIncrease}
-              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50"
+              disabled={!canIncrease}
+              className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              title={!canIncrease ? `Maximum stock available: ${data.stockQuantity}` : ''}
             >
               <Plus size={14} />
             </button>
           </div>
+          <span className="text-xs text-gray-500">
+            ({data.stockQuantity} in stock)
+          </span>
         </div>
       </div>
     </div>
@@ -108,7 +129,18 @@ const CartSlide = () => {
     return total + (Number(item.price) * (item.quantity || 1));
   }, 0);
 
+  // Check for stock issues
+  const stockIssues = cart.items.filter(item => {
+    const requestedQty = item.quantity || 1;
+    return requestedQty > item.stockQuantity;
+  });
+
+  const hasStockIssues = stockIssues.length > 0;
+
   const onCheckout = () => {
+    if (hasStockIssues) {
+      return; // Prevent checkout if there are stock issues
+    }
     cartSlide.onClose();
     router.push('/checkout');
   };
@@ -173,6 +205,31 @@ const CartSlide = () => {
           {/* Footer */}
           {cart.items.length > 0 && (
             <div className="border-t border-gray-200 p-4 space-y-4">
+              {/* Stock Issues Warning */}
+              {hasStockIssues && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                  <div className="flex gap-2">
+                    <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <h3 className="text-sm font-semibold text-red-800 mb-1">
+                        Insufficient Stock
+                      </h3>
+                      <ul className="text-xs text-red-700 space-y-1">
+                        {stockIssues.map((item) => (
+                          <li key={item.id}>
+                            <strong>{item.name}</strong>: Requested {item.quantity || 1}, only{' '}
+                            <strong>{item.stockQuantity}</strong> available.
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-xs text-red-600 mt-1 font-medium">
+                        Please update quantities before checkout.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="flex justify-between text-base font-medium text-gray-900">
                 <p>Estimated Total</p>
                 <Currency amount={totalPrice} />
@@ -182,10 +239,16 @@ const CartSlide = () => {
               </p>
               <Button
                 onClick={onCheckout}
-                className="w-full bg-black hover:bg-gray-800 text-white py-3 text-base font-medium"
+                disabled={hasStockIssues}
+                className="w-full bg-black hover:bg-gray-800 text-white py-3 text-base font-medium disabled:bg-gray-300 disabled:cursor-not-allowed"
               >
-                CHECKOUT
+                {hasStockIssues ? 'Resolve Stock Issues' : 'CHECKOUT'}
               </Button>
+              {hasStockIssues && (
+                <p className="text-xs text-red-600 text-center">
+                  Update item quantities to proceed
+                </p>
+              )}
             </div>
           )}
         </div>
