@@ -39,8 +39,13 @@ const Footer = () => {
                 <h3 className="text-xl font-bold text-black mb-6">About Us</h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/about/our-story" className="text-black hover:font-semibold transition-all">
+                    <Link href="/our-story" className="text-black hover:font-semibold transition-all">
                       Our Story
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact-us" className="text-black hover:font-semibold transition-all">
+                      Contact Us
                     </Link>
                   </li>
                   <li>
@@ -53,11 +58,11 @@ const Footer = () => {
 
               {/* Help & Support Section */}
               <div>
-                <h3 className="text-xl font-bold text-black mb-6">Help &amp; Support</h3>
+                <h3 className="text-xl font-bold text-black mb-6">Terms &amp; Conditions</h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link href="/returns-exchanges" className="text-black hover:font-semibold transition-all">
-                      Returns &amp; Exchanges
+                    <Link href="/return-policy" className="text-black hover:font-semibold transition-all">
+                      Return &amp; Policy
                     </Link>
                   </li>
                   <li>
@@ -70,11 +75,7 @@ const Footer = () => {
                       Terms of Use
                     </Link>
                   </li>
-                  <li>
-                    <Link href="/contact-us" className="text-black hover:font-semibold transition-all">
-                      Contact Us
-                    </Link>
-                  </li>
+                  
                 </ul>
               </div>
             </div>
