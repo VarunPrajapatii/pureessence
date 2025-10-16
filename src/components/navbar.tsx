@@ -15,7 +15,7 @@ export const revalidate = 0;
 const Navbar = async () => {
 
   return (
-    <div className="fixed bg-white w-full z-20">
+    <div className="fixed bg-[#FCFAEF]/90 w-full z-20">
       <Container>
         <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
           <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
